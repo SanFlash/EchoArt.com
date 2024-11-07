@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoArt_NAMDEO001</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="top-nav">
+        <ul>
+            <li><a href="single.html">Single</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="batch.html">Batch</a></li>
+        </ul>
+    </nav>
+
+    <video autoplay muted loop id="backgroundVideo">
+        <source src="video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="container" style="text-align: center;">
+        <h1>EchoArt</h1>
+        <label>Give Image Prompt here</label>
+        <br>
+        <input type="text" id="input" placeholder="Enter a description...">
+        <button id="enhanceBtn">Enhance</button>
+        <button id="voiceBtn">🎤 Speak</button>
+        <br><br>
+        <button id="multiBtn">Generate</button>
+    </div>
+
+    <!-- Container for displaying the generated images -->
+    <div id="imageContainer" style="text-align: center; display: none;">
+        <h2>Generated Images</h2>
+        <div id="imageGallery2" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;"></div>
+    </div>
+
+    <!-- Section for selected images to display as a slideshow or comic -->
+    <div id="slideshowContainer" style="text-align: center; display: none;">
+        <h2>Selected Images - Slideshow</h2>
+        <div id="slideshow" style="max-width: 600px; margin: auto; position: relative;">
+            <img id="slideImage" src="" alt="Slideshow Image" style="width: 100%; display: none;">
+            <button onclick="previousSlide()" style="position: absolute; top: 50%; left: 0;">&#10094;</button>
+            <button onclick="nextSlide()" style="position: absolute; top: 50%; right: 0;">&#10095;</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        const selectedImages = [];
+let currentSlideIndex = 0;
+
+async function generateMultipleImages() {
+    const prompt = inputTxt.value.trim();
+    const numImages = parseInt(numImagesInput?.value, 10) || 1;
+
+    if (!prompt) {
+        alert("Please enter a prompt.");
+        return;
+    }
+
+    if (isInappropriateContent(prompt)) {
+        alert("Content not allowed. Please avoid using inappropriate or explicit terms.");
+        return;
+    }
+
+    imageGallery.innerHTML = '';
+    imageContainer.style.display = "block";
+    multiButton.disabled = true;
+
+    for (let i = 0; i < numImages; i++) {
+        const imageWrapper = document.createElement("div");
+        imageWrapper.style.textAlign = "center";
+        imageWrapper.style.marginBottom = "20px";
+
+        const loadingImage = document.createElement("img");
+        loadingImage.src = loadingGifUrl;
+        loadingImage.alt = "Loading...";
+        loadingImage.style.width = "600px";
+        loadingImage.style.height = "500px";
+        imageWrapper.appendChild(loadingImage);
+
+        imageGallery.appendChild(imageWrapper);
+
+        const imageUrl = await query(prompt, true);
+        if (imageUrl) {
+            imageWrapper.removeChild(loadingImage);
+
+            const imgElement = document.createElement("img");
+            imgElement.src = imageUrl;
+            imgElement.alt = `Generated Image ${i + 1}`;
+            imgElement.style.width = "500px";
+            imgElement.style.height = "500px";
+            imageWrapper.appendChild(imgElement);
+
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.addEventListener("change", () => toggleSelectedImage(imageUrl));
+            imageWrapper.appendChild(checkbox);
+
+            imageGallery.appendChild(imageWrapper);
+        }
+    }
+
+    multiButton.disabled = false;
+}
+
+// Add or remove images from selected list for slideshow
+function toggleSelectedImage(imageUrl) {
+    const index = selectedImages.indexOf(imageUrl);
+    if (index === -1) {
+        selectedImages.push(imageUrl);
+    } else {
+        selectedImages.splice(index, 1);
+    }
+    document.getElementById("slideshowContainer").style.display = selectedImages.length ? "block" : "none";
+    if (selectedImages.length > 0) {
+        showSlide(0);
+    }
+}
+
+// Display the current slide image
+function showSlide(index) {
+    if (selectedImages.length === 0) return;
+
+    currentSlideIndex = (index + selectedImages.length) % selectedImages.length;
+    const slideImage = document.getElementById("slideImage");
+    slideImage.src = selectedImages[currentSlideIndex];
+    slideImage.style.display = "block";
+}
+
+// Navigate to previous slide
+function previousSlide() {
+    showSlide(currentSlideIndex - 1);
+}
+
+// Navigate to next slide
+function nextSlide() {
+    showSlide(currentSlideIndex + 1);
+}
+
+multiButton.addEventListener("click", generateMultipleImages);
+
+    </script>
+</body>
+</html>

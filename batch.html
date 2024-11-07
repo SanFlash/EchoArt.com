@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoArt_NAMDEO001</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="top-nav">
+        <ul>
+            <li><a href="single.html">Single</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="batch.html">Batch</a></li>
+        </ul>
+    </nav>
+
+
+    <video autoplay muted loop id="backgroundVideo">
+        <source src="video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="container" style="text-align: center;">
+        <h1>EchoArt</h1>
+        <label>Give Image Prompt here</label>
+        <br>
+        <input type="text" id="input" placeholder="Enter a description...">
+        <button id="enhanceBtn">Enhance</button>
+        <button id="voiceBtn">🎤 Speak</button>
+        <br><br>
+        <label>Number of Images:</label>
+        <input type="number" id="numImages" min="1" max="8" value="1">
+        <br><br>
+        <button id="multiBtn">Generate</button>
+    </div>
+
+    <!-- Container for displaying the generated images -->
+    <div id="imageContainer" style="text-align: center; display: none;">
+        <h2>Generated Images</h2>
+        <div id="imageGallery" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

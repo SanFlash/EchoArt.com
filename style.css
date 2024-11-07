@@ -1,0 +1,287 @@
+/* style.css */
+
+/* General styles remain the same */
+
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    position: relative;
+    overflow: auto;
+}
+
+#backgroundVideo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1; /* Places video behind the content */
+    opacity: 60%;
+}
+
+h1 {
+    color: #1083f0;
+    margin-bottom: 20px;
+    font-size: 60px;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 50px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 900px;
+    position: relative;
+    opacity: 90%;
+    z-index: 1; /* Ensures content stays above the video */
+    text-align: center;
+}
+
+label {
+    font-size: 1.5em;
+    color: #555;
+}
+
+input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-top: 10px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus {
+    border-color: #4a90e2;
+}
+
+/* Style for the number of images input box to match the prompt input */
+input[type="number"] {
+    width: 10%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-top: 10px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+input[type="number"]:focus {
+    border-color: #4a90e2;
+}
+
+
+button {
+    background-color: #811dbb;
+    color: white;
+    padding: 10px 20px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s ease-in-out;
+}
+
+button:hover {
+    background-color: #18dd7a;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+button#voiceBtn {
+    background-color: #5cb85c;
+    margin-top: 10px;
+}
+
+button#voiceBtn:hover {
+    background-color: #32f85d;
+}
+
+#imageContainer {
+    display: flex;
+    text-align: center;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+    z-index: 1; /* Ensures content stays above the video */
+    flex-direction: column; /* Set column layout by default */
+    opacity: 90%;
+}
+
+#imageContainer h2 {
+    color: #4a90e2;
+    font-size: 1.2em;
+    margin-bottom: 15px;
+}
+
+#image {
+    max-width: 100%;
+    border-radius: 8px;
+}
+#imageGallery2 img {
+    width: 300px; /* Increase as needed */
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Styling for the navigation menu */
+.top-nav {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 10;
+}
+
+.top-nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.top-nav ul li {
+    display: inline;
+    margin: 0 80px;
+}
+
+.top-nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.top-nav ul li a:hover {
+    color: #4eecaa;
+}
+
+/* Offset container content to not be hidden by the fixed nav */
+.container, #imageContainer {
+    margin-top: 80px;
+}
+
+
+
+/* Media Queries for Responsiveness */
+
+/* Smaller devices (tablets, 768px and below) */
+@media (max-width: 768px) {
+
+
+    .top-nav ul li {
+        margin: 0 15px;
+    }
+
+    .top-nav ul li a {
+        font-size: 16px;
+    }
+
+
+    .container {
+        padding: 30px;
+        width: 80%;
+    }
+
+    h1 {
+        font-size: 40px;
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-size: 1.2em;
+    }
+
+    input[type="text"] {
+        width: 80%;
+        font-size: 0.9em;
+    }
+    
+    }
+
+    button {
+        font-size: 1em;
+        padding: 8px 16px;
+    }
+
+    #imageContainer {
+        padding: 15px;
+        width: 80%;
+    }
+
+
+/* Extra small devices (phones, 480px and below) */
+@media (max-width: 480px) {
+
+
+    .top-nav {
+        padding: 15px;
+    }
+
+    .top-nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .top-nav ul li {
+        margin: 0 10px;
+    }
+
+    .top-nav ul li a {
+        font-size: 14px;
+    }
+
+    /* Adjust container margin for mobile */
+    .container, #imageContainer {
+        margin-top: 120px; /* Increased space for smaller screens */
+    }
+
+
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    label {
+        font-size: 1em;
+    }
+
+    input[type="text"] {
+        font-size: 0.8em;
+    }
+
+    button {
+        font-size: 0.9em;
+        padding: 6px 12px;
+    }
+
+    #imageContainer {
+        padding: 10px;
+    }
+}
